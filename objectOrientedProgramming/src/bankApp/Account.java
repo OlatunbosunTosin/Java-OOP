@@ -2,7 +2,17 @@ package bankApp;
 
 public class Account {
 
+    private String name;
     private int balance;
+    private String pin;
+    private String accountNumber;
+
+
+    public Account(String accountNumber, String firstName, String lastName, String pin){
+        this.pin = pin;
+        this.name = firstName +" "+ lastName;
+        this.accountNumber = accountNumber;
+    }
 
     public int getBalance(String userPin)
     {
@@ -19,17 +29,18 @@ public class Account {
     public void withdraw(int amount, String userPin){
         boolean amountIsLessThanBalance = amount < balance;
         boolean amountIsPositive = amount > 0;
-        if(validatePin(userPin) == true) {
+        if(validatePin(userPin)) {
             if (amountIsLessThanBalance && amountIsPositive) balance = balance - amount;
         }
         else throw new IllegalArgumentException("Invalid Pin");
-
     }
 
     private boolean validatePin(String userPin) {
-        String pin = "1234";
-        if(userPin.equals(pin))
-            return true;
-        return false;
+        return this.pin.equals(userPin);
+
+    }
+
+    public String getAccountNumber(){
+        return accountNumber;
     }
 }
